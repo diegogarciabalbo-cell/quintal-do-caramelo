@@ -117,7 +117,50 @@ h2{font-size:24px;line-height:30px}
 .add-foto{aspect-ratio:1;border-radius:10px;border:2px dashed var(--red);background:var(--raised);display:flex;align-items:center;justify-content:center;cursor:pointer}
 .add-foto input{position:absolute;width:1px;height:1px;opacity:0}
 .breve{margin:0;padding-left:22px;font-size:16px;line-height:26px}
-.aviso{position:fixed;left:50%;bottom:max(24px,env(safe-area-inset-bottom));transform:translateX(-50%);max-width:calc(100% - 32px);padding:12px 20px;border-radius:var(--r-md);background:var(--ink);color:var(--plum-ink);font-size:17px;line-height:24px;font-weight:600;z-index:20;text-align:center}
+.aviso{position:fixed;left:50%;top:max(16px,env(safe-area-inset-top));transform:translateX(-50%);max-width:calc(100% - 32px);padding:12px 20px;border-radius:var(--r-md);background:var(--ink);color:var(--plum-ink);font-size:17px;line-height:24px;font-weight:600;z-index:20;text-align:center}
+
+/* hortinha */
+.horta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.canteiro{display:flex;flex-direction:column;gap:8px;padding:10px;border-radius:16px;background:var(--raised);border:2px solid var(--line)}
+.terra{position:relative;height:132px;border-radius:12px;background:#FBEDE4;overflow:hidden}
+.terra::after{content:"";position:absolute;left:0;right:0;bottom:0;height:34px;background:#7A4E2E;border-top:4px solid #5E3B1A}
+.terra svg{position:absolute;left:50%;bottom:0;width:120px;height:120px;margin-left:-60px;z-index:1}
+.canteiro .estado{font-size:16px;line-height:22px;font-weight:700;text-align:center;min-height:44px;display:flex;flex-direction:column;justify-content:center}
+.canteiro .estado small{font-weight:500;color:var(--muted);font-size:14px;line-height:20px}
+.canteiro .btn{min-height:56px;font-size:18px;padding:8px}
+.btn:disabled{background:#EDE6DA;color:var(--muted);cursor:default}
+.btn-verde{background:var(--leaf);color:#FFFFFF}
+.gota{position:absolute;top:-10px;width:10px;height:14px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:#3B82C4;z-index:2;animation:cai .9s ease-in forwards}
+@keyframes cai{to{transform:translateY(110px);opacity:.2}}
+.sementes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.semente{display:flex;flex-direction:column;align-items:center;gap:4px;min-height:96px;padding:10px;border-radius:14px;border:2px solid var(--line);background:var(--surface);font-weight:700;font-size:18px}
+.semente svg{width:52px;height:52px}
+
+/* caça-palavras */
+.tabuleiro{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:4px;user-select:none;-webkit-user-select:none}
+.letra{aspect-ratio:1;padding:0;border-radius:8px;background:var(--raised);border:2px solid var(--line);font-family:var(--display);font-size:22px;line-height:1;font-weight:800;color:var(--ink)}
+.letra.inicio{background:var(--gold);border-color:var(--ink)}
+.letra.dica{animation:piscar .5s 5 alternate}
+@keyframes piscar{to{background:var(--gold);border-color:var(--ink)}}
+.letra.errou{animation:treme .4s}
+.lista-palavras{display:flex;flex-wrap:wrap;gap:8px}
+.palavra{padding:6px 14px;border-radius:999px;background:var(--raised);border:2px solid var(--line);font-weight:700;font-size:18px;line-height:26px;letter-spacing:.04em}
+.palavra.ok{text-decoration:line-through;color:var(--muted);background:#EDE6DA;border-color:#EDE6DA}
+
+/* corrida */
+.pista-info{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:18px;line-height:24px;font-weight:700;padding:0 4px}
+.pista-info .grande{font-family:var(--display);font-size:26px;line-height:30px;font-weight:800}
+.pista-wrap{position:relative;border-radius:var(--r-lg);overflow:hidden;background:#FBEDE4;border:2px solid var(--line)}
+.pista-wrap canvas{display:block;width:100%;touch-action:none}
+.pista-painel{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(31,26,43,.35)}
+.pista-painel .vitoria{width:100%;max-width:340px}
+.proximo{display:flex;flex-direction:column;gap:6px}
+.proximo .rotulo{padding:0}
+.proximo-ops{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.proximo-ops span{display:flex;align-items:center;justify-content:center;min-height:52px;border-radius:var(--r-md);background:var(--raised);border:2px solid var(--line);font-family:var(--display);font-size:28px;font-weight:800}
+.proximo-ops span.aqui{border-color:var(--ink);background:var(--gold);box-shadow:0 0 0 2px var(--ink)}
+.controles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.btn-seta{min-height:76px;font-size:20px}
 
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
@@ -192,6 +235,42 @@ h2{font-size:24px;line-height:30px}
     <svg width="14" height="24" viewBox="0 0 14 24" aria-hidden="true"><path d="M3 3l8 9-8 9" stroke="#1F1A2B" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </button>
 
+  <button class="cartao" id="abrir-horta">
+    <span class="icone" style="background:var(--leaf)">
+      <svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 34V18" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/><path d="M20 22c-8-1-11-7-11-12 7 0 11 5 11 12z" fill="#A6DB9C"/><path d="M20 18c7-1 10-6 10-11-6 0-10 4-10 11z" fill="#FFFFFF"/><rect x="8" y="32" width="24" height="5" rx="2.5" fill="#F6E3C4"/></svg>
+    </span>
+    <span class="textos">
+      <strong>Hortinha</strong>
+      <span class="desc" id="horta-resumo">Plante, regue e colha</span>
+      <span class="premio">Cada colheita vale 3 ossinhos</span>
+    </span>
+    <svg width="14" height="24" viewBox="0 0 14 24" aria-hidden="true"><path d="M3 3l8 9-8 9" stroke="#1F1A2B" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+
+  <button class="cartao" id="abrir-palavras">
+    <span class="icone" style="background:var(--red)">
+      <svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><rect x="5" y="5" width="30" height="30" rx="5" fill="#FFFFFF"/><text x="10" y="18" font-family="Arial,sans-serif" font-weight="800" font-size="10" fill="#1F1A2B">A B</text><text x="10" y="30" font-family="Arial,sans-serif" font-weight="800" font-size="10" fill="#1F1A2B">C D</text><circle cx="27" cy="27" r="7" fill="none" stroke="#E9A93A" stroke-width="3"/><path d="M32 32l4 4" stroke="#E9A93A" stroke-width="3" stroke-linecap="round"/></svg>
+    </span>
+    <span class="textos">
+      <strong>Caça-palavras</strong>
+      <span class="desc">Frutas, comidas de vó, bichos e mais</span>
+      <span class="premio">Ganhe 4 ossinhos</span>
+    </span>
+    <svg width="14" height="24" viewBox="0 0 14 24" aria-hidden="true"><path d="M3 3l8 9-8 9" stroke="#1F1A2B" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+
+  <button class="cartao" id="abrir-corrida">
+    <span class="icone" style="background:var(--ink)">
+      <svg width="42" height="40" viewBox="0 0 42 40" aria-hidden="true"><path d="M14 38L19 4h4l5 34z" fill="#5E5768"/><path d="M21 8v4M21 18v5M21 29v6" stroke="#F6E3C4" stroke-width="2" stroke-linecap="round"/><rect x="2" y="10" width="15" height="10" rx="3" fill="#E9A93A"/><text x="9.5" y="18.5" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="9" fill="#1F1A2B">×2</text><rect x="25" y="10" width="15" height="10" rx="3" fill="#F6DCD3"/><text x="32.5" y="18.5" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="8" fill="#1F1A2B">−10</text></svg>
+    </span>
+    <span class="textos">
+      <strong>Corrida do Caramelo</strong>
+      <span class="desc">Junte a matilha e vença o Gato Chefe</span>
+      <span class="premio">Até 10 ossinhos · fases cada vez mais difíceis</span>
+    </span>
+    <svg width="14" height="24" viewBox="0 0 14 24" aria-hidden="true"><path d="M3 3l8 9-8 9" stroke="#1F1A2B" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+
   <a class="cartao" id="abrir-feira" href="https://diegogarciabalbo-cell.github.io/feira-sort/">
     <span class="icone" style="background:var(--gold)">
       <svg width="38" height="38" viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="21" r="12" fill="#C8372D"/><path d="M18 9c0-3 2-5 5-5" stroke="#1F1A2B" stroke-width="2.4" fill="none" stroke-linecap="round"/><path d="M18 9c3-4 8-3 9 0-4 2-7 1-9 0z" fill="#2E7D57"/></svg>
@@ -225,6 +304,94 @@ h2{font-size:24px;line-height:30px}
     <p>Você achou todos os pares e ganhou <strong>5 ossinhos</strong> para o Caramelo.</p>
     <button class="btn btn-red" id="jogar-de-novo">Jogar de novo</button>
     <button class="btn btn-claro" data-voltar>Voltar ao quintal</button>
+  </div>
+</section>
+
+<!-- ===== Hortinha ===== -->
+<section class="tela" id="tela-horta" hidden aria-labelledby="titulo-horta">
+  <div class="barra">
+    <button class="btn btn-claro btn-pequeno" data-voltar>
+      <svg width="12" height="20" viewBox="0 0 14 24" aria-hidden="true"><path d="M11 3l-8 9 8 9" stroke="#1F1A2B" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Quintal
+    </button>
+    <span class="placar" id="colheitas"></span>
+  </div>
+  <h1 id="titulo-horta">Hortinha</h1>
+  <p class="muted" style="margin:0">Plante uma semente e regue de manhã, de tarde e de noite. Com três regas ela fica pronta para colher.</p>
+  <div class="horta" id="horta"></div>
+  <div class="painel" id="escolher-semente" hidden>
+    <h2>O que vamos plantar?</h2>
+    <div class="sementes" id="sementes"></div>
+    <button class="btn btn-claro btn-pequeno" id="cancelar-semente">Agora não</button>
+  </div>
+</section>
+
+<!-- ===== Caça-palavras ===== -->
+<section class="tela" id="tela-palavras" hidden aria-labelledby="titulo-palavras">
+  <div class="barra">
+    <button class="btn btn-claro btn-pequeno" data-voltar>
+      <svg width="12" height="20" viewBox="0 0 14 24" aria-hidden="true"><path d="M11 3l-8 9 8 9" stroke="#1F1A2B" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Quintal
+    </button>
+    <span class="placar" id="placar-palavras" aria-live="polite">0 de 5</span>
+  </div>
+  <h1 id="titulo-palavras">Caça-palavras</h1>
+  <p style="margin:0"><strong id="tema-palavras">Tema</strong></p>
+  <p class="muted" style="margin:0;font-size:17px;line-height:25px">Toque na primeira e na última letra de cada palavra. Elas estão deitadas ou em pé.</p>
+  <div class="lista-palavras" id="lista-palavras"></div>
+  <div class="tabuleiro" id="tabuleiro"></div>
+  <button class="btn btn-claro btn-pequeno" id="dica-palavras">Me dá uma dica</button>
+  <div class="vitoria" id="vitoria-palavras" hidden>
+    <h2>Achou todas!</h2>
+    <p>Muito bem. Você ganhou <strong>4 ossinhos</strong> para o Caramelo.</p>
+    <button class="btn btn-red" id="palavras-de-novo">Outro tema</button>
+    <button class="btn btn-claro" data-voltar>Voltar ao quintal</button>
+  </div>
+</section>
+
+<!-- ===== Corrida ===== -->
+<section class="tela" id="tela-corrida" hidden aria-labelledby="titulo-corrida">
+  <div class="barra">
+    <button class="btn btn-claro btn-pequeno" data-voltar>
+      <svg width="12" height="20" viewBox="0 0 14 24" aria-hidden="true"><path d="M11 3l-8 9 8 9" stroke="#1F1A2B" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Quintal
+    </button>
+    <span class="placar" id="recorde-corrida"></span>
+  </div>
+  <h1 id="titulo-corrida" style="font-size:28px;line-height:34px">Corrida do Caramelo</h1>
+  <div class="pista-info">
+    <span>Matilha: <span class="grande" id="corrida-ossos" aria-live="polite">5</span> cães</span>
+    <span id="corrida-portao">Portão 0 de 8</span>
+  </div>
+  <div class="proximo" id="proximo" aria-live="polite">
+    <span class="rotulo" id="proximo-rotulo">Próximo portão</span>
+    <div class="proximo-ops" id="proximo-ops"><span>?</span><span>?</span><span>?</span></div>
+  </div>
+  <div class="pista-wrap">
+    <canvas id="pista" role="img" aria-label="Rua com três pistas. O Caramelo corre com sua matilha e encontra ossinhos, gatos e portões com contas."></canvas>
+    <div class="pista-painel" id="corrida-inicio">
+      <div class="vitoria">
+        <h2>Junte a matilha!</h2>
+        <p>Passe pelos portões com as melhores contas para juntar cachorros. Desvie das turmas de gatos e, no fim da rua, vença o Gato Chefe com uma matilha maior que a dele.</p>
+        <button class="btn btn-red" id="corrida-comecar">Começar</button>
+      </div>
+    </div>
+    <div class="pista-painel" id="corrida-fim" hidden>
+      <div class="vitoria">
+        <h2 id="corrida-fim-titulo">Fim da corrida!</h2>
+        <p id="corrida-resultado"></p>
+        <button class="btn btn-red" id="corrida-de-novo">Correr de novo</button>
+        <button class="btn btn-claro" data-voltar>Voltar ao quintal</button>
+      </div>
+    </div>
+  </div>
+  <div class="controles">
+    <button class="btn btn-claro btn-seta" id="seta-esq" aria-label="Ir para a esquerda">
+      <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4l-8 8 8 8" stroke="#1F1A2B" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Esquerda
+    </button>
+    <button class="btn btn-claro btn-seta" id="seta-dir" aria-label="Ir para a direita">
+      Direita<svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4l8 8-8 8" stroke="#1F1A2B" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
   </div>
 </section>
 
@@ -274,7 +441,7 @@ h2{font-size:24px;line-height:30px}
 
 /* ---------- guardar e carregar ---------- */
 var CHAVE = 'quintal-caramelo-v1';
-var padrao = { ossos: 10, feliz: 3, nome: '', fotos: [], ultimoDia: null, feiraEm: null, partidas: 0 };
+var padrao = { ossos: 10, feliz: 3, nome: '', fotos: [], horta: [null, null, null, null], colheitas: 0, recordeCorrida: 0, faseCorrida: 1, ultimoDia: null, feiraEm: null, partidas: 0 };
 var s = carregar();
 
 function carregar(){
@@ -313,7 +480,8 @@ function vibrar(ms){ try { if (navigator.vibrate) navigator.vibrate(ms); } catch
 
 /* ---------- telas ---------- */
 function mostrar(nome){
-  ['quintal', 'memoria', 'familia'].forEach(function(t){ $('tela-' + t).hidden = (t !== nome); });
+  ['quintal', 'memoria', 'horta', 'palavras', 'corrida', 'familia'].forEach(function(t){ $('tela-' + t).hidden = (t !== nome); });
+  if (nome !== 'corrida') pararCorrida();
   window.scrollTo(0, 0);
   if (nome === 'quintal') desenharQuintal();
 }
@@ -342,6 +510,8 @@ function desenharQuintal(){
   $('coracoes').innerHTML = html;
   $('coracoes').setAttribute('aria-label', s.feliz + ' de 5 corações');
   $('petisco-txt').textContent = s.ossos > 0 ? 'Dar um petisco' : 'Jogue para ganhar ossinhos';
+  var espera = s.horta.filter(function(c){ return c && (c.fase >= 4 || c.regadoEm !== periodo()); }).length;
+  $('horta-resumo').textContent = espera ? (espera === 1 ? '1 canteiro esperando você' : espera + ' canteiros esperando você') : 'Plante, regue e colha';
 }
 
 function animarCao(classe){
@@ -387,6 +557,9 @@ $('cao').addEventListener('click', function(){
 });
 
 $('abrir-memoria').addEventListener('click', function(){ iniciarMemoria(); mostrar('memoria'); });
+$('abrir-horta').addEventListener('click', function(){ desenharHorta(); mostrar('horta'); });
+$('abrir-palavras').addEventListener('click', function(){ novoCaca(); mostrar('palavras'); });
+$('abrir-corrida').addEventListener('click', function(){ mostrar('corrida'); prepararCorrida(); });
 $('abrir-familia').addEventListener('click', function(){ desenharFamilia(); mostrar('familia'); });
 $('abrir-feira').addEventListener('click', function(){ s.feiraEm = Date.now(); salvar(); });
 
@@ -491,6 +664,584 @@ function venceu(){
   $('jogar-de-novo').focus();
 }
 $('jogar-de-novo').addEventListener('click', iniciarMemoria);
+
+/* ---------- hortinha ---------- */
+function periodo(){ var h = new Date().getHours(); return hoje() + '-' + (h < 12 ? 'm' : h < 18 ? 't' : 'n'); }
+var SEMENTES = {
+  tomate: { nome: 'Tomate', artigo: 'um tomate' },
+  alface: { nome: 'Alface', artigo: 'uma alface' },
+  cenoura: { nome: 'Cenoura', artigo: 'uma cenoura' },
+  girassol: { nome: 'Girassol', artigo: 'um girassol' }
+};
+var FASES = ['', 'Semente plantada', 'Brotou!', 'Crescendo', 'Pronto para colher'];
+var CAULE = '<path d="M60 92V__Y__" stroke="#2E7D57" stroke-width="5" stroke-linecap="round"/>';
+var FOLHAS_BAIXO = '<path d="M60 76c-16-2-22-12-22-20 13 0 20 8 22 20z" fill="#3E9A68"/><path d="M60 76c16-2 22-12 22-20-13 0-20 8-22 20z" fill="#3E9A68"/>';
+var FOLHAS_ALTO = '<path d="M60 58c-14-2-19-10-19-18 11 0 17 7 19 18z" fill="#4FAE76"/><path d="M60 58c14-2 19-10 19-18-11 0-17 7-19 18z" fill="#4FAE76"/>';
+function svgPlanta(c){
+  var o = '<svg viewBox="0 0 120 120" aria-hidden="true">';
+  if (!c) return o + '<path d="M40 92h40" stroke="#5E3B1A" stroke-width="4" stroke-linecap="round" stroke-dasharray="4 8"/></svg>';
+  if (c.fase === 1) return o + '<ellipse cx="60" cy="90" rx="18" ry="6" fill="#5E3B1A"/><ellipse cx="60" cy="86" rx="5" ry="4" fill="#E9A93A"/></svg>';
+  if (c.fase === 2) return o + CAULE.replace('__Y__', '72') + '<path d="M60 76c-12-2-16-9-16-15 10 0 15 6 16 15z" fill="#4FAE76"/><path d="M60 76c12-2 16-9 16-15-10 0-15 6-16 15z" fill="#4FAE76"/></svg>';
+  if (c.fase === 3) return o + CAULE.replace('__Y__', '46') + FOLHAS_BAIXO + FOLHAS_ALTO + '</svg>';
+  if (c.tipo === 'tomate') return o + CAULE.replace('__Y__', '34') + FOLHAS_BAIXO + FOLHAS_ALTO + '<circle cx="44" cy="62" r="9" fill="#C8372D"/><circle cx="76" cy="52" r="9" fill="#C8372D"/><circle cx="62" cy="38" r="8" fill="#E8584B"/><circle cx="41" cy="59" r="2.5" fill="#F6DCD3"/><circle cx="73" cy="49" r="2.5" fill="#F6DCD3"/></svg>';
+  if (c.tipo === 'alface') return o + '<ellipse cx="60" cy="80" rx="36" ry="18" fill="#2E7D57"/><ellipse cx="60" cy="74" rx="28" ry="16" fill="#3E9A68"/><ellipse cx="60" cy="70" rx="18" ry="11" fill="#6BBF7A"/><ellipse cx="60" cy="67" rx="9" ry="6" fill="#A6DB9C"/></svg>';
+  if (c.tipo === 'cenoura') return o + '<path d="M60 64c-4-14-14-22-20-24M60 64c0-16 4-26 2-36M60 64c4-14 14-22 20-24" stroke="#3E9A68" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M48 86h24l-12 30z" fill="#F28C28"/><path d="M50 66h20l-2 20H52z" fill="#F28C28"/></svg>';
+  return o + CAULE.replace('__Y__', '30') + FOLHAS_BAIXO + '<g transform="translate(60 30)"><circle r="20" fill="#F2C230"/><circle r="20" fill="none" stroke="#E9A93A" stroke-width="6" stroke-dasharray="5 5"/><circle r="9" fill="#5E3B1A"/></g></svg>';
+}
+var hortaAlvo = null;
+function desenharHorta(){
+  var h = $('horta'); h.innerHTML = '';
+  var p = periodo();
+  s.horta.forEach(function(c, i){
+    var d = document.createElement('div'); d.className = 'canteiro';
+    var titulo, sub, acao, rotulo, classe = 'btn-red', desativado = false;
+    if (!c) { titulo = 'Canteiro vazio'; sub = 'Pronto para plantar'; acao = 'plantar'; rotulo = 'Plantar'; }
+    else if (c.fase >= 4) { titulo = SEMENTES[c.tipo].nome; sub = FASES[4]; acao = 'colher'; rotulo = 'Colher'; classe = 'btn-verde'; }
+    else if (c.regadoEm === p) { titulo = SEMENTES[c.tipo].nome; sub = FASES[c.fase] + ' · volte mais tarde'; acao = null; rotulo = 'Já regado'; desativado = true; }
+    else { titulo = SEMENTES[c.tipo].nome; sub = FASES[c.fase]; acao = 'regar'; rotulo = 'Regar'; }
+    d.innerHTML = '<div class="terra">' + svgPlanta(c) + '</div><div class="estado">' + titulo + '<small>' + sub + '</small></div><button class="btn ' + classe + '"' + (desativado ? ' disabled' : '') + '>' + rotulo + '</button>';
+    var b = d.querySelector('button');
+    b.setAttribute('aria-label', rotulo + ' no canteiro ' + (i + 1) + (c ? ', ' + SEMENTES[c.tipo].nome : ''));
+    if (acao) b.addEventListener('click', function(){ cuidar(i, acao, d); });
+    h.appendChild(d);
+  });
+  $('colheitas').textContent = s.colheitas ? (s.colheitas === 1 ? '1 colheita' : s.colheitas + ' colheitas') : '';
+}
+function cuidar(i, acao, el){
+  var c = s.horta[i];
+  if (acao === 'plantar') {
+    hortaAlvo = i;
+    var box = $('sementes'); box.innerHTML = '';
+    Object.keys(SEMENTES).forEach(function(tipo){
+      var b = document.createElement('button'); b.className = 'semente';
+      b.innerHTML = svgPlanta({ tipo: tipo, fase: 4 }) + SEMENTES[tipo].nome;
+      b.addEventListener('click', function(){ plantar(tipo); });
+      box.appendChild(b);
+    });
+    $('escolher-semente').hidden = false;
+    $('escolher-semente').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    box.querySelector('button').focus({ preventScroll: true });
+  } else if (acao === 'regar') {
+    var terra = el.querySelector('.terra');
+    for (var g = 0; g < 4; g++) {
+      var gota = document.createElement('span'); gota.className = 'gota';
+      gota.style.left = (30 + g * 14 + Math.random() * 8) + '%';
+      gota.style.animationDelay = (g * 0.12) + 's';
+      terra.appendChild(gota);
+    }
+    vibrar(30);
+    setTimeout(function(){
+      c.fase += 1; c.regadoEm = periodo(); salvar(); desenharHorta();
+      avisar(c.fase >= 4 ? 'Está pronto para colher!' : 'Regado! Volte mais tarde para regar de novo.');
+    }, 900);
+  } else if (acao === 'colher') {
+    s.ossos += 3; s.colheitas += 1; s.horta[i] = null; salvar();
+    falar('Que horta bonita! Obrigado pelos ossinhos.');
+    avisar('Você colheu ' + SEMENTES[c.tipo].artigo + '! Ganhou 3 ossinhos.');
+    vibrar(50); desenharHorta();
+  }
+}
+function plantar(tipo){
+  if (hortaAlvo === null) return;
+  s.horta[hortaAlvo] = { tipo: tipo, fase: 1, regadoEm: null };
+  hortaAlvo = null; salvar();
+  $('escolher-semente').hidden = true;
+  desenharHorta();
+  avisar('Semente de ' + SEMENTES[tipo].nome.toLowerCase() + ' plantada! Agora é só regar.');
+}
+$('cancelar-semente').addEventListener('click', function(){ hortaAlvo = null; $('escolher-semente').hidden = true; });
+
+/* ---------- caça-palavras ---------- */
+var TEMAS = [
+  { nome: 'Frutas da feira', palavras: ['BANANA', 'MANGA', 'CAJU', 'GOIABA', 'LIMAO', 'UVA', 'MAMAO', 'ACEROLA', 'CAQUI', 'PERA'] },
+  { nome: 'Comidas de vó', palavras: ['FEIJAO', 'ARROZ', 'BOLO', 'PUDIM', 'PAMONHA', 'CANJICA', 'FAROFA', 'QUINDIM', 'COCADA', 'SOPA'] },
+  { nome: 'Bichos do quintal', palavras: ['GALINHA', 'GATO', 'PATO', 'CAVALO', 'PORCO', 'SAPO', 'VACA', 'CABRA', 'PERU', 'COELHO'] },
+  { nome: 'Cidades do Brasil', palavras: ['RECIFE', 'NATAL', 'BELEM', 'MANAUS', 'SALVADOR', 'CURITIBA', 'MACEIO', 'PALMAS', 'SANTOS', 'OLINDA'] },
+  { nome: 'Coisas da cozinha', palavras: ['PANELA', 'FOGAO', 'COLHER', 'CANECA', 'PRATO', 'GARFO', 'TOALHA', 'FACA', 'BULE', 'PENEIRA'] },
+  { nome: 'Futebol', palavras: ['GOL', 'BOLA', 'CRAQUE', 'JUIZ', 'TORCIDA', 'CAMISA', 'TRAVE', 'CHUTE', 'CAMPO', 'TIME'] }
+];
+var CORES_ACHADA = ['#F6DCD3', '#FBE3B5', '#D6EEDD', '#E3DCF0', '#D7E6F4'];
+var N = 8;
+var caca = null, ultimoTema = -1;
+
+function montarGrade(palavras){
+  for (var tentativa = 0; tentativa < 80; tentativa++) {
+    var g = new Array(N * N).fill(null), lugares = [], ok = true;
+    for (var w = 0; w < palavras.length && ok; w++) {
+      var txt = palavras[w], posto = false;
+      for (var k = 0; k < 150 && !posto; k++) {
+        var horiz = Math.random() < 0.5;
+        var r = Math.floor(Math.random() * (horiz ? N : N - txt.length + 1));
+        var c = Math.floor(Math.random() * (horiz ? N - txt.length + 1 : N));
+        var cel = [], cabe = true;
+        for (var j = 0; j < txt.length; j++) {
+          var idx = horiz ? r * N + c + j : (r + j) * N + c;
+          if (g[idx] !== null && g[idx] !== txt[j]) { cabe = false; break; }
+          cel.push(idx);
+        }
+        if (cabe) { cel.forEach(function(idx, j){ g[idx] = txt[j]; }); lugares.push(cel); posto = true; }
+      }
+      if (!posto) ok = false;
+    }
+    if (ok) {
+      var letras = 'AAAAEEEIIIOOOUURRSSTTNNMMLLCCDDPPBGVF';
+      for (var i = 0; i < g.length; i++) if (g[i] === null) g[i] = letras[Math.floor(Math.random() * letras.length)];
+      return { grade: g, lugares: lugares };
+    }
+  }
+  return null;
+}
+function novoCaca(){
+  var t; do { t = Math.floor(Math.random() * TEMAS.length); } while (t === ultimoTema && TEMAS.length > 1);
+  ultimoTema = t;
+  var montado = null, escolhidas;
+  while (!montado) { escolhidas = embaralha(TEMAS[t].palavras.slice()).slice(0, 5); montado = montarGrade(escolhidas); }
+  caca = { grade: montado.grade, inicio: null, achadas: 0,
+    palavras: escolhidas.map(function(txt, i){ return { txt: txt, cel: montado.lugares[i], ok: false, cor: CORES_ACHADA[i] }; }) };
+  $('tema-palavras').textContent = 'Tema: ' + TEMAS[t].nome;
+  $('vitoria-palavras').hidden = true;
+  $('tabuleiro').hidden = false; $('dica-palavras').hidden = false;
+  var tab = $('tabuleiro'); tab.innerHTML = '';
+  caca.grade.forEach(function(l, i){
+    var b = document.createElement('button'); b.className = 'letra'; b.textContent = l;
+    b.setAttribute('aria-label', l + ', linha ' + (Math.floor(i / N) + 1) + ', coluna ' + (i % N + 1));
+    b.addEventListener('click', function(){ tocarLetra(i); });
+    tab.appendChild(b);
+  });
+  desenharListaPalavras();
+}
+function desenharListaPalavras(){
+  var l = $('lista-palavras'); l.innerHTML = '';
+  caca.palavras.forEach(function(p){
+    var sp = document.createElement('span'); sp.className = 'palavra' + (p.ok ? ' ok' : ''); sp.textContent = p.txt;
+    l.appendChild(sp);
+  });
+  $('placar-palavras').textContent = caca.achadas + ' de 5';
+}
+function celula(i){ return $('tabuleiro').children[i]; }
+function tocarLetra(i){
+  if (caca.inicio === null) { caca.inicio = i; celula(i).classList.add('inicio'); return; }
+  var a = caca.inicio;
+  celula(a).classList.remove('inicio');
+  caca.inicio = null;
+  if (a === i) return;
+  var ra = Math.floor(a / N), ca = a % N, rb = Math.floor(i / N), cb = i % N;
+  if (ra !== rb && ca !== cb) { caca.inicio = i; celula(i).classList.add('inicio'); return; }
+  var linha = [], passo = ra === rb ? 1 : N, de = Math.min(a, i), ate = Math.max(a, i);
+  for (var x = de; x <= ate; x += passo) linha.push(x);
+  var achou = null;
+  caca.palavras.forEach(function(p){
+    if (!p.ok && p.cel.length === linha.length && p.cel.every(function(v, k){ return v === linha[k]; })) achou = p;
+  });
+  if (achou) {
+    achou.ok = true; caca.achadas += 1;
+    achou.cel.forEach(function(v){ var e = celula(v); e.style.background = achou.cor; e.style.borderColor = '#C8372D'; });
+    vibrar(40); desenharListaPalavras();
+    if (caca.achadas === 5) setTimeout(venceuCaca, 700);
+  } else {
+    [a, i].forEach(function(v){ var e = celula(v); e.classList.remove('errou'); void e.offsetWidth; e.classList.add('errou'); });
+    avisar('Ainda não. Tente outra vez, sem pressa.');
+  }
+}
+function venceuCaca(){
+  s.ossos += 4; s.partidas += 1; salvar();
+  falar('Você achou todas as palavras! Ganhou 4 ossinhos.');
+  $('tabuleiro').hidden = true; $('dica-palavras').hidden = true;
+  $('vitoria-palavras').hidden = false;
+  $('palavras-de-novo').focus();
+}
+$('dica-palavras').addEventListener('click', function(){
+  var p = caca.palavras.filter(function(x){ return !x.ok; })[0];
+  if (!p) return;
+  var e = celula(p.cel[0]); e.classList.remove('dica'); void e.offsetWidth; e.classList.add('dica');
+  setTimeout(function(){ e.classList.remove('dica'); }, 2600);
+  avisar(p.txt + ' começa na letra que está piscando.');
+});
+$('palavras-de-novo').addEventListener('click', novoCaca);
+
+/* ---------- corrida do caramelo: matilha contra os gatos ---------- */
+var cv = $('pista'), cx = cv.getContext('2d');
+var W = 0, H = 0, DPR = 1;
+var TOTAL_PORTOES = 8;
+var cr = null, rafId = null, ultimoT = 0;
+var CORES_CAES = ['#D08C3F', '#F6E3C4', '#A8692A', '#1F1A2B', '#E9A93A', '#8A5A33'];
+var CORES_GATOS = ['#8C8597', '#E08A3C', '#2B2633', '#B9B2C4', '#C9772E'];
+
+function medirPista(){
+  DPR = Math.min(window.devicePixelRatio || 1, 2);
+  W = cv.parentElement.clientWidth || 358;
+  H = Math.round(Math.min(W * 1.15, window.innerHeight * 0.56));
+  cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR);
+  cv.style.height = H + 'px';
+  cx.setTransform(DPR, 0, 0, DPR, 0, 0);
+}
+function proj(d){ var a = 1 / (1 + 2 * d), b = 1 / 3; return (a - b) / (1 - b); }
+function lerp(a, b, k){ return a + (b - a) * k; }
+function horizonte(){ return H * 0.26; }
+function chaoY(){ return H * 0.9; }
+function yDe(p){ return horizonte() + (chaoY() - horizonte()) * p; }
+function meiaRua(p){ return lerp(W * 0.07, W * 0.46, p); }
+function xDe(pista, p){ return W / 2 + (pista - 1) * (meiaRua(p) * 2 / 3); }
+function rnd(a, b){ return a + Math.floor(Math.random() * (b - a + 1)); }
+
+function sortearOps(g, fase){
+  var dif = g + (fase - 1) * 2;
+  var boas = [function(){ return '+' + rnd(3, 8); }, function(){ return '×2'; }];
+  var ruins = [function(){ return '−' + rnd(2, 5); }, function(){ return '÷2'; }];
+  if (dif >= 2) { boas.push(function(){ return '+10'; }); ruins.push(function(){ return '−10'; }); }
+  if (dif >= 5) { boas.push(function(){ return '×3'; }, function(){ return '+15'; }); ruins.push(function(){ return '−15'; }); }
+  var ops = [sorteia(boas)(), sorteia(ruins)()], tries = 0;
+  while (ops.length < 3 && tries++ < 60) { var o = sorteia(Math.random() < 0.55 ? boas : ruins)(); if (ops.indexOf(o) < 0) ops.push(o); }
+  while (ops.length < 3) ops.push('+1');
+  return embaralha(ops);
+}
+function aplicar(op, v){
+  var n = parseInt(op.slice(1), 10), sinal = op[0];
+  if (sinal === '+') return v + n;
+  if (sinal === '−') return Math.max(0, v - n);
+  if (sinal === '×') return v * n;
+  return Math.floor(v / n);
+}
+
+function prepararCorrida(){
+  medirPista();
+  var fase = s.faseCorrida || 1;
+  cr = { rodando: false, pista: 1, x: 1, caes: 5, ossosPegos: 0, objs: [], textos: [], vel: 0.25 + 0.01 * Math.min(fase, 8),
+         prox: 0.6, linha: 0, portoes: 0, gerados: 0, faixa: 0, t: 0, tropeco: 0, fim: false,
+         proximoPortao: null, melhor: 5, turmaPendente: false, chefe: null, fase: fase, resultado: null };
+  $('corrida-inicio').hidden = false; $('corrida-fim').hidden = true;
+  $('corrida-comecar').textContent = 'Começar fase ' + fase;
+  atualizarInfoCorrida(); mostrarProximo();
+  $('recorde-corrida').textContent = 'Fase ' + fase;
+  desenharPista();
+}
+function comecarCorrida(){
+  if (!cr) prepararCorrida();
+  $('corrida-inicio').hidden = true; $('corrida-fim').hidden = true;
+  cr.rodando = true; ultimoT = performance.now();
+  cancelAnimationFrame(rafId); rafId = requestAnimationFrame(passo);
+  $('seta-dir').focus({ preventScroll: true });
+}
+function pararCorrida(){ if (cr) cr.rodando = false; cancelAnimationFrame(rafId); }
+function atualizarInfoCorrida(){
+  $('corrida-ossos').textContent = cr.caes;
+  $('corrida-portao').textContent = 'Portão ' + cr.portoes + ' de ' + TOTAL_PORTOES + (cr.ossosPegos ? ' · ' + cr.ossosPegos + ' ossinhos' : '');
+}
+function mostrarProximo(){
+  var spans = $('proximo-ops').children;
+  if (cr && cr.chefe && !cr.proximoPortao) {
+    for (var j = 0; j < 3; j++) spans[j].textContent = j === 1 ? cr.chefe.n : '';
+    $('proximo-rotulo').textContent = 'Fim da rua: o Gato Chefe tem ' + cr.chefe.n + ' gatos';
+    destacarProximo(); return;
+  }
+  var g = cr && cr.proximoPortao;
+  for (var i = 0; i < 3; i++) spans[i].textContent = g ? g.ops[i] : '·';
+  $('proximo-rotulo').textContent = g ? 'Próximo portão: escolha a melhor conta' : 'Próximo portão';
+  destacarProximo();
+}
+function destacarProximo(){
+  var spans = $('proximo-ops').children, chefe = cr && cr.chefe && !cr.proximoPortao;
+  for (var i = 0; i < 3; i++) spans[i].classList.toggle('aqui', !!cr && !chefe && i === cr.pista);
+}
+function mover(dir){
+  if (!cr || !cr.rodando) return;
+  cr.pista = Math.max(0, Math.min(2, cr.pista + dir)); vibrar(10); destacarProximo();
+}
+$('seta-esq').addEventListener('click', function(){ mover(-1); });
+$('seta-dir').addEventListener('click', function(){ mover(1); });
+$('corrida-comecar').addEventListener('click', comecarCorrida);
+$('corrida-de-novo').addEventListener('click', function(){ prepararCorrida(); comecarCorrida(); });
+document.addEventListener('keydown', function(e){
+  if ($('tela-corrida').hidden) return;
+  if (e.key === 'ArrowLeft') { mover(-1); e.preventDefault(); }
+  if (e.key === 'ArrowRight') { mover(1); e.preventDefault(); }
+});
+var toqueX = null;
+cv.addEventListener('touchstart', function(e){ toqueX = e.touches[0].clientX; }, { passive: true });
+cv.addEventListener('touchend', function(e){
+  if (toqueX === null) return;
+  var dx = e.changedTouches[0].clientX - toqueX; toqueX = null;
+  if (Math.abs(dx) > 30) mover(dx > 0 ? 1 : -1);
+  else mover(e.changedTouches[0].clientX - cv.getBoundingClientRect().left > W / 2 ? 1 : -1);
+});
+cv.addEventListener('click', function(e){
+  if (!('ontouchstart' in window)) mover(e.clientX - cv.getBoundingClientRect().left > W / 2 ? 1 : -1);
+});
+document.addEventListener('visibilitychange', function(){
+  if (document.hidden && cr && cr.rodando) { pararCorrida(); $('corrida-inicio').hidden = false; $('corrida-comecar').textContent = 'Continuar'; }
+});
+window.addEventListener('resize', function(){ if (!$('tela-corrida').hidden && cr) { medirPista(); desenharPista(); } });
+
+function gerarLinha(){
+  cr.linha += 1;
+  if (cr.gerados < TOTAL_PORTOES && cr.linha % 6 === 0) {
+    var novo = { tipo: 'portao', d: 1, ops: sortearOps(cr.gerados, cr.fase), feito: false };
+    cr.melhor = Math.max.apply(null, novo.ops.map(function(o){ return aplicar(o, cr.melhor); }));
+    cr.objs.push(novo); cr.gerados += 1;
+    if (cr.gerados === 3 || cr.gerados === 6) cr.turmaPendente = true;
+    if (!cr.proximoPortao) { cr.proximoPortao = novo; mostrarProximo(); }
+    cr.prox = 1.5; return;
+  }
+  if (cr.gerados >= TOTAL_PORTOES) {
+    if (!cr.chefe) {
+      var fator = Math.min(0.7, 0.28 + 0.06 * cr.fase);
+      cr.chefe = { tipo: 'chefe', d: 1, n: Math.max(3, Math.round(cr.melhor * fator)), feito: false };
+      cr.objs.push(cr.chefe);
+      if (!cr.proximoPortao) mostrarProximo();
+    }
+    cr.prox = 99; return;
+  }
+  if (cr.linha % 6 === 5) { cr.prox = 1.0; return; }
+  if (cr.turmaPendente && cr.linha % 6 === 2) {
+    var n = Math.max(2, Math.round(cr.melhor * 0.25));
+    cr.objs.push({ tipo: 'turma', d: 1, n: n, feito: false });
+    cr.melhor = Math.max(1, cr.melhor - n);
+    cr.turmaPendente = false; cr.prox = 1.4; return;
+  }
+  var pistas = embaralha([0, 1, 2]);
+  if (Math.random() < 0.5) cr.objs.push({ tipo: 'gato', pista: pistas[0], n: rnd(1, 1 + Math.min(cr.fase, 3)), d: 1, feito: false });
+  cr.objs.push({ tipo: 'osso', pista: pistas[1], d: 1, feito: false });
+  if (Math.random() < 0.35) cr.objs.push({ tipo: 'osso', pista: pistas[2], d: 1, feito: false });
+  cr.prox = 0.95;
+}
+function flutuar(txt, cor, grande){ cr.textos.push({ txt: txt, cor: cor, t: 0, grande: !!grande, x: xDe(cr.x, 1) }); }
+
+function passo(agora){
+  if (!cr || !cr.rodando) return;
+  var dt = Math.min(0.05, (agora - ultimoT) / 1000); ultimoT = agora;
+  cr.t += dt;
+  cr.x += (cr.pista - cr.x) * Math.min(1, dt * 10);
+  cr.faixa = (cr.faixa + dt * cr.vel * 2.2) % 1;
+  cr.tropeco = Math.max(0, cr.tropeco - dt);
+  cr.prox -= dt; if (cr.prox <= 0) gerarLinha();
+  var minha = Math.round(cr.x);
+  for (var i = 0; i < cr.objs.length && cr.rodando; i++) {
+    var o = cr.objs[i];
+    o.d -= cr.vel * dt;
+    if (o.feito) continue;
+    if (o.tipo === 'portao' && o.d <= 0.03) {
+      o.feito = true;
+      var op = o.ops[minha], antes = cr.caes;
+      cr.caes = Math.max(1, aplicar(op, cr.caes));
+      cr.portoes += 1;
+      cr.proximoPortao = cr.objs.filter(function(x){ return x.tipo === 'portao' && !x.feito; })[0] || null;
+      mostrarProximo();
+      flutuar(antes + ' ' + op + ' = ' + cr.caes, cr.caes >= antes ? '#2E7D57' : '#C8372D', true);
+      vibrar(cr.caes >= antes ? 30 : 80);
+      atualizarInfoCorrida();
+    } else if (o.tipo === 'turma' && o.d <= 0.04) {
+      o.feito = true;
+      cr.caes = Math.max(1, cr.caes - o.n);
+      flutuar(o.n + ' gatos fugiram!', '#2E2148', true); vibrar(90); cr.tropeco = 0.5;
+      atualizarInfoCorrida();
+    } else if (o.tipo === 'chefe' && o.d <= 0.04) {
+      o.feito = true;
+      terminarCorrida(cr.caes > o.n); return;
+    } else if ((o.tipo === 'osso' || o.tipo === 'gato') && o.d <= 0.05 && o.d > -0.04 && o.pista === minha) {
+      o.feito = true;
+      if (o.tipo === 'osso') { cr.ossosPegos += 1; flutuar('+1 ossinho', '#1F1A2B'); }
+      else {
+        cr.caes = Math.max(1, cr.caes - o.n); cr.tropeco = 0.6;
+        flutuar('−' + o.n, '#C8372D'); vibrar(60);
+      }
+      atualizarInfoCorrida();
+    }
+  }
+  cr.objs = cr.objs.filter(function(o){ return o.d > -0.12; });
+  cr.textos.forEach(function(tx){ tx.t += dt; });
+  cr.textos = cr.textos.filter(function(tx){ return tx.t < 1.5; });
+  desenharPista();
+  rafId = requestAnimationFrame(passo);
+}
+function terminarCorrida(venceu){
+  if (!cr || cr.fim) return;
+  cr.fim = true; pararCorrida(); desenharPista();
+  var leva, html, fase = cr.fase;
+  if (venceu) {
+    leva = Math.min(10, 4 + Math.floor(cr.ossosPegos / 2));
+    s.faseCorrida = fase + 1;
+    html = 'Sua matilha de <strong>' + cr.caes + ' cães</strong> espantou os ' + cr.chefe.n + ' gatos do chefe! Fase ' + fase + ' concluída.<br>O Caramelo leva <strong>' + leva + ' ossinhos</strong> para o quintal.';
+    $('corrida-fim-titulo').textContent = 'Vitória!';
+    $('corrida-de-novo').textContent = 'Ir para a fase ' + (fase + 1);
+    falar('Ganhamos do Gato Chefe! Trouxe ' + leva + ' ossinhos.');
+  } else {
+    leva = 2;
+    var falta = cr.chefe && cr.caes > 0 ? (cr.chefe.n - cr.caes + 1) : 0;
+    html = (falta ? 'Faltaram só <strong>' + falta + ' cães</strong> para vencer o Gato Chefe.' : 'Os gatos espantaram a matilha desta vez.') + '<br>O Caramelo leva <strong>2 ossinhos</strong> pelo esforço.';
+    $('corrida-fim-titulo').textContent = 'Quase!';
+    $('corrida-de-novo').textContent = 'Tentar de novo';
+    falar('Foi por pouco! Vamos tentar de novo?');
+  }
+  s.ossos += leva; s.partidas += 1; salvar();
+  $('corrida-resultado').innerHTML = html;
+  $('recorde-corrida').textContent = 'Fase ' + (s.faseCorrida || 1);
+  $('corrida-fim').hidden = false;
+  $('corrida-de-novo').focus();
+}
+
+/* desenho */
+function miniCao(x, y, k, cor){
+  cx.fillStyle = cor;
+  cx.beginPath(); cx.ellipse(x, y - 9 * k, 9 * k, 9 * k, 0, 0, 7); cx.fill();
+  cx.beginPath(); cx.arc(x, y - 22 * k, 7 * k, 0, 7); cx.fill();
+  cx.fillStyle = cor === '#1F1A2B' ? '#5E5768' : '#8A5A33';
+  cx.beginPath(); cx.ellipse(x - 6.5 * k, y - 21 * k, 2.6 * k, 5 * k, 0.3, 0, 7); cx.fill();
+  cx.beginPath(); cx.ellipse(x + 6.5 * k, y - 21 * k, 2.6 * k, 5 * k, -0.3, 0, 7); cx.fill();
+}
+function miniGato(x, y, k, cor){
+  cx.fillStyle = cor;
+  cx.beginPath(); cx.ellipse(x, y - 8 * k, 8 * k, 8 * k, 0, 0, 7); cx.fill();
+  cx.beginPath(); cx.arc(x, y - 20 * k, 7 * k, 0, 7); cx.fill();
+  cx.beginPath(); cx.moveTo(x - 7 * k, y - 22 * k); cx.lineTo(x - 5 * k, y - 32 * k); cx.lineTo(x - 1 * k, y - 25 * k); cx.closePath(); cx.fill();
+  cx.beginPath(); cx.moveTo(x + 7 * k, y - 22 * k); cx.lineTo(x + 5 * k, y - 32 * k); cx.lineTo(x + 1 * k, y - 25 * k); cx.closePath(); cx.fill();
+  cx.strokeStyle = cor; cx.lineWidth = 3 * k; cx.lineCap = 'round';
+  cx.beginPath(); cx.moveTo(x + 7 * k, y - 6 * k); cx.quadraticCurveTo(x + 16 * k, y - 10 * k, x + 13 * k, y - 22 * k); cx.stroke();
+  cx.fillStyle = '#E9A93A';
+  cx.beginPath(); cx.arc(x - 2.5 * k, y - 21 * k, 1.4 * k, 0, 7); cx.fill();
+  cx.beginPath(); cx.arc(x + 2.5 * k, y - 21 * k, 1.4 * k, 0, 7); cx.fill();
+}
+function placa(txt, x, y, k, fundo, tinta){
+  cx.font = '800 ' + Math.max(11, Math.round(26 * k)) + 'px "Bricolage Grotesque", Inter, sans-serif';
+  var w = cx.measureText(txt).width + 18 * k, h = 32 * k;
+  cx.fillStyle = fundo; cx.strokeStyle = '#1F1A2B'; cx.lineWidth = Math.max(1.5, 3 * k);
+  cx.beginPath(); if (cx.roundRect) cx.roundRect(x - w / 2, y - h, w, h, 8 * k); else cx.rect(x - w / 2, y - h, w, h); cx.fill(); cx.stroke();
+  cx.fillStyle = tinta; cx.textAlign = 'center'; cx.textBaseline = 'middle';
+  cx.fillText(txt, x, y - h / 2 + 1);
+}
+function grupoGatos(x, y, k, n, largura){
+  var m = Math.min(n, 14), por = Math.max(3, Math.ceil(Math.sqrt(m * 2)));
+  for (var i = 0; i < m; i++) {
+    var col = i % por, lin = Math.floor(i / por);
+    var gx = x + (col - (por - 1) / 2) * (largura / por), gy = y - lin * 9 * k;
+    miniGato(gx, gy, k * 0.9, CORES_GATOS[i % CORES_GATOS.length]);
+  }
+  placa(n + (n === 1 ? ' gato' : ' gatos'), x, y - 40 * k - Math.floor((m - 1) / por) * 9 * k, k, '#FFFFFF', '#1F1A2B');
+}
+function desenharOsso(x, y, k){
+  cx.save(); cx.translate(x, y); cx.rotate(-0.35); cx.scale(k, k);
+  cx.fillStyle = '#E9A93A'; cx.strokeStyle = '#1F1A2B'; cx.lineWidth = 2.4;
+  cx.beginPath(); cx.rect(-14, -5, 28, 10); cx.fill(); cx.stroke();
+  [[-16, -5], [-16, 5], [16, -5], [16, 5]].forEach(function(c){ cx.beginPath(); cx.arc(c[0], c[1], 6, 0, 7); cx.fill(); cx.stroke(); });
+  cx.beginPath(); cx.rect(-13, -3.8, 26, 7.6); cx.fill();
+  cx.restore();
+}
+function desenharPortao(o){
+  var p = proj(Math.max(0, o.d)), y = yDe(p), larg = meiaRua(p) * 2 / 3, k = lerp(0.25, 1, p);
+  var alt = 120 * k, placaH = 50 * k;
+  for (var i = 0; i < 3; i++) {
+    var x = xDe(i, p);
+    cx.fillStyle = '#2E2148';
+    cx.fillRect(x - larg / 2 + 2 * k, y - alt, 6 * k, alt);
+    cx.fillRect(x + larg / 2 - 8 * k, y - alt, 6 * k, alt);
+    var bx = x - larg / 2 + 4 * k, bw = larg - 8 * k, by = y - alt - placaH * 0.4;
+    cx.fillStyle = '#FFFFFF'; cx.strokeStyle = '#2E2148'; cx.lineWidth = Math.max(1.5, 4 * k);
+    cx.beginPath(); if (cx.roundRect) cx.roundRect(bx, by, bw, placaH, 8 * k); else cx.rect(bx, by, bw, placaH); cx.fill(); cx.stroke();
+    cx.fillStyle = '#1F1A2B'; cx.textAlign = 'center'; cx.textBaseline = 'middle';
+    cx.font = '800 ' + Math.max(10, Math.round(34 * k)) + 'px "Bricolage Grotesque", Inter, sans-serif';
+    cx.fillText(o.ops[i], x, by + placaH / 2 + 1);
+  }
+}
+function desenharChefe(o){
+  var p = proj(Math.max(0, o.d)), y = yDe(p), k = lerp(0.25, 1, p), meia = meiaRua(p);
+  var alt = 46 * k;
+  cx.fillStyle = '#C8372D'; cx.fillRect(W / 2 - meia, y - alt, meia * 2, alt);
+  cx.strokeStyle = '#9E2A22'; cx.lineWidth = Math.max(1, 2 * k);
+  for (var r = 1; r < 3; r++) { cx.beginPath(); cx.moveTo(W / 2 - meia, y - alt * r / 3); cx.lineTo(W / 2 + meia, y - alt * r / 3); cx.stroke(); }
+  grupoGatos(W / 2, y - alt, k * 1.1, o.n, meia * 1.6);
+  miniGato(W / 2, y - alt - 4 * k, k * 2.6, '#2B2633');
+  cx.fillStyle = '#E9A93A';
+  cx.beginPath(); cx.moveTo(W / 2 - 12 * k, y - alt - 86 * k); cx.lineTo(W / 2 - 6 * k, y - alt - 98 * k); cx.lineTo(W / 2, y - alt - 88 * k); cx.lineTo(W / 2 + 6 * k, y - alt - 98 * k); cx.lineTo(W / 2 + 12 * k, y - alt - 86 * k); cx.closePath(); cx.fill();
+}
+function desenharMatilha(){
+  var x = xDe(cr ? cr.x : 1, 1), y = chaoY(), n = cr ? cr.caes : 5;
+  var t = cr ? cr.t : 0, corre = cr && cr.rodando;
+  var extras = Math.min(Math.max(0, n - 1), 24);
+  for (var i = extras - 1; i >= 0; i--) {
+    var lin = Math.floor(i / 6), col = i % 6;
+    var dx = (col - 2.5) * 17 + (lin % 2 ? 8 : 0), dy = -30 - lin * 12;
+    var pul = corre ? Math.abs(Math.sin(t * 9 + i)) * 3 : 0;
+    miniCao(x + dx, y + dy - pul, 0.85, CORES_CAES[i % CORES_CAES.length]);
+  }
+  desenharCao();
+  var topo = y - 100 - Math.floor(Math.max(0, extras - 1) / 6) * 12;
+  placa(String(n), x, topo, 1, '#E9A93A', '#1F1A2B');
+}
+function desenharCao(){
+  var x = xDe(cr ? cr.x : 1, 1), y = chaoY();
+  var t = cr ? cr.t : 0, corre = cr && cr.rodando;
+  var pulo = corre ? Math.abs(Math.sin(t * 9)) * 5 : 0;
+  if (cr && cr.tropeco > 0 && Math.floor(cr.tropeco * 10) % 2 === 0) cx.globalAlpha = 0.45;
+  cx.save(); cx.translate(x, y - pulo);
+  cx.fillStyle = 'rgba(31,26,43,.18)'; cx.beginPath(); cx.ellipse(0, pulo + 4, 30, 7, 0, 0, 7); cx.fill();
+  var perna = corre ? Math.sin(t * 18) * 5 : 0;
+  cx.fillStyle = '#A8692A';
+  cx.beginPath(); cx.ellipse(-13, -6 + perna, 8, 10, 0, 0, 7); cx.fill();
+  cx.beginPath(); cx.ellipse(13, -6 - perna, 8, 10, 0, 0, 7); cx.fill();
+  cx.strokeStyle = '#D08C3F'; cx.lineWidth = 8; cx.lineCap = 'round';
+  var rabo = corre ? Math.sin(t * 20) * 10 : 0;
+  cx.beginPath(); cx.moveTo(0, -30); cx.quadraticCurveTo(rabo, -52, rabo * 1.4 + 4, -60); cx.stroke();
+  cx.fillStyle = '#D08C3F'; cx.beginPath(); cx.ellipse(0, -26, 26, 24, 0, 0, 7); cx.fill();
+  cx.fillStyle = '#C8372D'; cx.fillRect(-17, -52, 34, 7);
+  cx.fillStyle = '#D08C3F'; cx.beginPath(); cx.arc(0, -66, 21, 0, 7); cx.fill();
+  cx.fillStyle = '#A8692A';
+  cx.beginPath(); cx.ellipse(-20, -62, 7, 14, 0.3, 0, 7); cx.fill();
+  cx.beginPath(); cx.ellipse(20, -62, 7, 14, -0.3, 0, 7); cx.fill();
+  cx.restore(); cx.globalAlpha = 1;
+}
+function desenharPista(){
+  if (!W) return;
+  cx.clearRect(0, 0, W, H);
+  var hz = horizonte();
+  cx.fillStyle = '#FBEDE4'; cx.fillRect(0, 0, W, hz);
+  cx.fillStyle = '#E9A93A'; cx.beginPath(); cx.arc(W * 0.82, hz * 0.42, hz * 0.26, 0, 7); cx.fill();
+  var casas = ['#F6DCD3', '#C8372D', '#E9A93A', '#2E2148', '#F6DCD3', '#D08C3F', '#5A4590', '#E9A93A'];
+  for (var i = 0; i < 8; i++) {
+    var lado = i < 4 ? -1 : 1, j = i % 4;
+    var cxh = W / 2 + lado * (W * 0.12 + j * W * 0.1), ch = hz * (0.28 + (j % 2) * 0.12);
+    cx.fillStyle = casas[i]; cx.fillRect(cxh - W * 0.045, hz - ch, W * 0.09, ch);
+    cx.fillStyle = 'rgba(255,255,255,.7)'; cx.fillRect(cxh - W * 0.015, hz - ch * 0.62, W * 0.03, ch * 0.22);
+  }
+  cx.fillStyle = '#F6DCD3'; cx.fillRect(0, hz, W, H - hz);
+  var baseMeia = W * 0.56;
+  cx.fillStyle = '#5E5768';
+  cx.beginPath(); cx.moveTo(W / 2 - meiaRua(0), hz); cx.lineTo(W / 2 + meiaRua(0), hz); cx.lineTo(W / 2 + baseMeia, H); cx.lineTo(W / 2 - baseMeia, H); cx.closePath(); cx.fill();
+  cx.fillStyle = '#F6E3C4';
+  var off = cr ? cr.faixa : 0;
+  for (var q = 0; q < 14; q++) {
+    var d1 = 1 - ((q / 14 + off) % 1), d2 = d1 - 0.035;
+    if (d2 < 0) continue;
+    var p1 = proj(d1), p2 = proj(d2);
+    [-1, 1].forEach(function(sd){
+      var xa = W / 2 + sd * meiaRua(p1) / 3, xb = W / 2 + sd * meiaRua(p2) / 3;
+      var wa = lerp(1, 5, p1), wb = lerp(1, 5, p2);
+      cx.beginPath(); cx.moveTo(xa - wa, yDe(p1)); cx.lineTo(xa + wa, yDe(p1)); cx.lineTo(xb + wb, yDe(p2)); cx.lineTo(xb - wb, yDe(p2)); cx.closePath(); cx.fill();
+    });
+  }
+  if (cr) {
+    var lista = cr.objs.slice().sort(function(a, b){ return b.d - a.d; });
+    lista.forEach(function(o){
+      if (o.d < 0 || (o.feito && o.tipo !== 'portao')) return;
+      var p = proj(o.d), k = lerp(0.25, 1, p);
+      if (o.tipo === 'portao') return desenharPortao(o);
+      if (o.tipo === 'chefe') return desenharChefe(o);
+      if (o.tipo === 'turma') return grupoGatos(W / 2, yDe(p), k * 1.1, o.n, meiaRua(p) * 1.6);
+      if (o.tipo === 'osso') return desenharOsso(xDe(o.pista, p), yDe(p) - 14 * k, k);
+      grupoGatos(xDe(o.pista, p), yDe(p), k, o.n, meiaRua(p) * 0.5);
+    });
+  }
+  desenharMatilha();
+  if (cr) cr.textos.forEach(function(tx){
+    var a = 1 - tx.t / 1.5;
+    cx.globalAlpha = Math.max(0, a);
+    cx.textAlign = 'center'; cx.textBaseline = 'middle';
+    cx.font = '800 ' + (tx.grande ? 32 : 24) + 'px "Bricolage Grotesque", Inter, sans-serif';
+    var ty = tx.grande ? H * 0.42 - tx.t * 30 : chaoY() - 140 - tx.t * 40;
+    var tx0 = tx.grande ? W / 2 : tx.x;
+    cx.lineWidth = 6; cx.strokeStyle = '#FFFFFF'; cx.strokeText(tx.txt, tx0, ty);
+    cx.fillStyle = tx.cor; cx.fillText(tx.txt, tx0, ty);
+    cx.globalAlpha = 1;
+  });
+}
 
 /* ---------- família ---------- */
 function desenharFamilia(){
